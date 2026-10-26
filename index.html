@@ -1,0 +1,1220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOSE RIZAL UNIVERSITY Programming Hub | First Year</title>
+
+<style>
+:root {
+  --primary: #8b1838;
+  --accent: #f5bd51;
+  --bg: #f5f6fa;
+  --card: #ffffff;
+  --text: #202638;
+  --muted: #667085;
+  --border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+body.dark {
+  --bg: #101827;
+  --card: #1d2939;
+  --text: #f9fafb;
+  --muted: #cbd5e1;
+  --border: #374151;
+}
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.theme {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 9px 13px;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+.hero {
+  background: linear-gradient(135deg, #71112e, #b52b50);
+  color: white;
+  text-align: center;
+  padding: 85px 20px;
+}
+
+.hero h1 {
+  font-size: clamp(30px, 5vw, 48px);
+  margin: 0 0 15px;
+}
+
+.hero p {
+  max-width: 680px;
+  margin: 0 auto 25px;
+}
+
+.btn {
+  background: var(--accent);
+  color: #252525;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: bold;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn:hover {
+  filter: brightness(0.94);
+}
+
+.container {
+  max-width: 1150px;
+  margin: auto;
+  padding: 55px 20px;
+}
+
+h2 {
+  color: var(--primary);
+  margin-top: 0;
+}
+
+.dark h2 {
+  color: #ff8da9;
+}
+
+.stats, .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 23px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card p {
+  color: var(--muted);
+}
+
+.stat-number {
+  font-size: 34px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.dark .stat-number {
+  color: #ff8da9;
+}
+
+.search {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--card);
+  color: var(--text);
+  font-size: 16px;
+  margin: 15px 0 25px;
+}
+
+.lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson small {
+  color: var(--muted);
+}
+
+.lesson button, .action {
+  background: var(--primary);
+  color: white;
+  padding: 11px 15px;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+}
+
+.lesson button {
+  margin-top: auto;
+}
+
+.lesson button:hover, .action:hover {
+  background: #b52b50;
+}
+
+#lessonViewer {
+  display: none;
+  margin-top: 30px;
+}
+
+#lessonViewer h3 {
+  color: var(--primary);
+}
+
+.dark #lessonViewer h3 {
+  color: #ff8da9;
+}
+
+pre {
+  background: #101827;
+  color: #e2e8f0;
+  padding: 20px;
+  border-radius: 9px;
+  overflow-x: auto;
+  white-space: pre;
+  font-size: 14px;
+}
+
+code {
+  font-family: Consolas, monospace;
+}
+
+.question {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.question label {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#quizResult {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.progress-track {
+  background: var(--border);
+  border-radius: 30px;
+  height: 13px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: #22a06b;
+  transition: width 0.3s;
+}
+
+footer {
+  background: #71112e;
+  color: white;
+  padding: 25px;
+  text-align: center;
+}
+
+footer p {
+  margin: 5px;
+}
+
+@media(max-width: 600px) {
+  header {
+    position: static;
+  }
+
+  .container {
+    padding: 35px 15px;
+  }
+
+  .hero {
+    padding: 65px 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🎓 Jose Rizal University Programming Hub</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#lessons">Lessons</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#about">About</a>
+    <a href="#developers">Developers</a>
+  </nav>
+  <button class="theme" onclick="toggleTheme()">🌙 Theme</button>
+</header>
+
+<section class="hero" id="home">
+  <h1>Welcome, Future Programmers!</h1>
+  <p>
+    An unofficial learning website for first-year
+    Jose Rizal University students. Learn programming
+    fundamentals, practice writing code, and test
+    your knowledge through interactive quizzes.
+  </p>
+  <a href="#lessons" class="btn">Start Learning →</a>
+</section>
+
+<section class="container" id="dashboard">
+  <h2>📊 Student Dashboard</h2>
+
+  <div class="stats">
+    <div class="card">
+      <h3>Total Lessons</h3>
+      <div class="stat-number" id="totalLessons">0</div>
+      <p>Programming topics available</p>
+    </div>
+
+    <div class="card">
+      <h3>Completed Lessons</h3>
+      <div class="stat-number" id="completedLessons">0</div>
+      <p>Topics you have finished</p>
+    </div>
+
+    <div class="card">
+      <h3>Learning Progress</h3>
+      <div class="stat-number" id="progressPercent">0%</div>
+      <p>Keep learning every day!</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <h3>Your Progress</h3>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+  </div>
+</section>
+
+<section class="container" id="lessons">
+  <h2>📚 Programming Lessons</h2>
+  <p>
+    Select a lesson to read explanations,
+    study examples, and practice programming.
+  </p>
+
+  <input
+    type="search"
+    class="search"
+    id="search"
+    placeholder="Search lessons, Python, Java, HTML..."
+    oninput="renderLessons()"
+  >
+
+  <div class="grid" id="lessonList"></div>
+
+  <div class="card" id="lessonViewer">
+    <button class="action" onclick="closeLesson()">← Back to Lessons</button>
+    <h2 id="lessonTitle"></h2>
+    <p id="lessonCategory"></p>
+    <div id="lessonContent"></div>
+
+    <h3>💻 Example Code</h3>
+    <pre><code id="lessonCode"></code></pre>
+
+    <button class="action" onclick="copyCode()">Copy Code</button>
+    <button class="action" onclick="completeLesson()">
+      ✓ Mark as Completed
+    </button>
+    <p id="lessonStatus"></p>
+  </div>
+</section>
+
+<section class="container" id="quiz">
+  <h2>📝 Programming Quiz</h2>
+  <p>Answer these questions to test your knowledge.</p>
+
+  <div class="card">
+    <div id="quizQuestions"></div>
+    <button class="action" onclick="checkQuiz()">Submit Answers</button>
+    <button class="action" onclick="resetQuiz()">Try Again</button>
+    <div id="quizResult" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="container" id="about">
+  <div class="card">
+    <h2>About This Website</h2>
+    <p>
+      Jose Rizal University Programming Hub is an independent educational
+      resource designed to help first-year students
+      learn the basics of computer programming.
+    </p>
+    <p>
+      The lessons are general introductory materials
+      and do not represent the official Jose Rizal University syllabus.
+      Your instructor's course outline should remain
+      your main guide.
+    </p>
+    <p>
+      Built using HTML, CSS, and JavaScript.
+      No database or account is required.
+    </p>
+  </div>
+</section>  
+<h2>👨‍💻 Meet Our Development Team</h2>
+
+<footer>
+  <h3>Jose Rizal University Programming Hub</h3>
+
+  <p>Developed by:</p>
+  <p>
+    John Paul Manto | Niel Marquez |
+    Mark Callida | Cyrus Ibisate
+  </p>
+
+  <p>© 2026 Jose Rizal University Programming Hub</p>
+  <p>All Rights Reserved.</p>
+  <p>Unofficial Student Learning Resource</p>
+
+
+</footer>
+  <p>© 2026 Jose Rizal University Programming Hub</p>
+  <p>Unofficial Student Learning Resource</p>
+</footer>
+
+<script>
+// ===============================
+// PROGRAMMING LESSON DATABASE
+// ===============================
+
+const lessons = [
+  {
+    title: "Introduction to Programming",
+    category: "Fundamentals",
+    description: "Understand programs and programming languages.",
+    content: `
+      <p>Programming is the process of writing instructions
+      that a computer can execute.</p>
+      <p>A program is a set of instructions used to solve
+      problems or perform tasks.</p>
+      <h3>Important Concepts</h3>
+      <ul>
+        <li>Source code: instructions written by a programmer.</li>
+        <li>Programming language: a language used to write code.</li>
+        <li>Compiler: translates source code into executable form.</li>
+        <li>Interpreter: executes instructions through a runtime.</li>
+        <li>Debugging: finding and fixing errors.</li>
+      </ul>
+      <p><b>Practice:</b> Write a program that prints your name.</p>
+    `,
+    code: `print("Hello, Jose Rizal University Students!")
+print("Welcome to Programming")`
+  },
+  {
+    title: "Algorithms",
+    category: "Fundamentals",
+    description: "Learn step-by-step problem solving.",
+    content: `
+      <p>An algorithm is a sequence of clear steps
+      used to solve a problem.</p>
+      <h3>Example: Add Two Numbers</h3>
+      <ol>
+        <li>Start</li>
+        <li>Input the first number</li>
+        <li>Input the second number</li>
+        <li>Add the two numbers</li>
+        <li>Display the result</li>
+        <li>Stop</li>
+      </ol>
+      <p>Algorithms help programmers plan before coding.</p>
+    `,
+    code: `START
+INPUT number1
+INPUT number2
+sum = number1 + number2
+OUTPUT sum
+STOP`
+  },
+  {
+    title: "Flowcharts and Pseudocode",
+    category: "Fundamentals",
+    description: "Plan programs with diagrams and simple instructions.",
+    content: `
+      <p>A flowchart represents the steps of an algorithm
+      using symbols and arrows.</p>
+      <ul>
+        <li>Oval: Start or End</li>
+        <li>Rectangle: Process</li>
+        <li>Diamond: Decision</li>
+        <li>Parallelogram: Input or Output</li>
+        <li>Arrow: Direction of flow</li>
+      </ul>
+      <p>Pseudocode describes an algorithm without requiring
+      exact programming language syntax.</p>
+    `,
+    code: `START
+INPUT age
+IF age >= 18 THEN
+    OUTPUT "Adult"
+ELSE
+    OUTPUT "Minor"
+END IF
+STOP`
+  },
+  {
+    title: "Variables and Data Types",
+    category: "Fundamentals",
+    description: "Store and work with information.",
+    content: `
+      <p>A variable is a named location used to store a value.</p>
+      <h3>Common Data Types</h3>
+      <ul>
+        <li>Integer: whole numbers</li>
+        <li>Float: decimal numbers</li>
+        <li>String: text</li>
+        <li>Boolean: True or False</li>
+      </ul>
+      <p>Variables allow programs to process different inputs.</p>
+    `,
+    code: `name = "Student"
+age = 18
+grade = 95.5
+enrolled = True
+
+print(name)
+print(age)
+print(grade)
+print(enrolled)`
+  },
+  {
+    title: "Input and Output",
+    category: "Fundamentals",
+    description: "Accept information and display results.",
+    content: `
+      <p>Input allows users to provide data to a program.</p>
+      <p>Output presents information to the user.</p>
+      <p>In Python, input() receives text and print()
+      displays information.</p>
+      <p>Use int() to convert numeric input to an integer.</p>
+    `,
+    code: `name = input("Enter your name: ")
+age = int(input("Enter your age: "))
+
+print("Hello,", name)
+print("Your age is", age)`
+  },
+  {
+    title: "Operators",
+    category: "Fundamentals",
+    description: "Perform arithmetic and comparisons.",
+    content: `
+      <h3>Arithmetic Operators</h3>
+      <ul>
+        <li>+ Addition</li>
+        <li>- Subtraction</li>
+        <li>* Multiplication</li>
+        <li>/ Division</li>
+        <li>% Modulus or remainder</li>
+        <li>** Exponentiation in Python</li>
+      </ul>
+      <p>Comparison operators include ==, !=, >, <,
+      >= and <=.</p>
+      <p>Logical operators include and, or, and not.</p>
+    `,
+    code: `a = 10
+b = 3
+
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a % b)
+print(a > b)`
+  },
+  {
+    title: "Conditional Statements",
+    category: "Fundamentals",
+    description: "Make decisions using if and else.",
+    content: `
+      <p>Conditional statements execute different code
+      depending on whether a condition is true or false.</p>
+      <p>Python uses if, elif, and else.</p>
+      <p>Indentation is important in Python.</p>
+      <p><b>Practice:</b> Create a program that determines
+      whether a number is positive, negative, or zero.</p>
+    `,
+    code: `grade = int(input("Enter grade: "))
+
+if grade >= 75:
+    print("Passed")
+else:
+    print("Failed")`
+  },
+  {
+    title: "Loops",
+    category: "Fundamentals",
+    description: "Repeat instructions efficiently.",
+    content: `
+      <p>A loop repeats a block of instructions.</p>
+      <h3>Types</h3>
+      <ul>
+        <li>For loop: repeats over a sequence or range.</li>
+        <li>While loop: repeats while a condition is true.</li>
+      </ul>
+      <p>Be careful to avoid infinite loops.</p>
+    `,
+    code: `for number in range(1, 6):
+    print(number)
+
+count = 1
+
+while count <= 3:
+    print("Hello")
+    count += 1`
+  },
+  {
+    title: "Functions",
+    category: "Fundamentals",
+    description: "Create reusable blocks of code.",
+    content: `
+      <p>A function is a reusable block of instructions
+      designed to perform a task.</p>
+      <p>Functions can accept parameters and return values.</p>
+      <p>They make programs easier to organize and maintain.</p>
+    `,
+    code: `def greet(name):
+    return "Hello, " + name
+
+print(greet("Student"))
+
+def add(a, b):
+    return a + b
+
+print(add(10, 5))`
+  },
+  {
+    title: "Arrays and Lists",
+    category: "Fundamentals",
+    description: "Store multiple values together.",
+    content: `
+      <p>A list in Python stores an ordered collection
+      of values.</p>
+      <p>List indexing starts at zero.</p>
+      <p>Common operations include append(), remove(),
+      and len().</p>
+    `,
+    code: `students = ["Ana", "Mark", "John"]
+
+print(students[0])
+
+students.append("Maria")
+
+for student in students:
+    print(student)
+
+print(len(students))`
+  },
+  {
+    title: "Python Basics",
+    category: "Python",
+    description: "Learn beginner-friendly Python syntax.",
+    content: `
+      <p>Python is a high-level programming language
+      known for its readable syntax.</p>
+      <p>Python is commonly used in automation,
+      web development, and data analysis.</p>
+      <p>Python files use the .py extension.</p>
+      <p>Install Python to execute this example locally.</p>
+    `,
+    code: `print("Welcome to Python!")
+
+name = "Jose Rizal University Student"
+year = 1
+
+print("Name:", name)
+print("Year:", year)`
+  },
+  {
+    title: "C Programming Basics",
+    category: "C",
+    description: "Learn syntax, main(), and printf().",
+    content: `
+      <p>C is a compiled programming language.</p>
+      <p>A typical C program begins execution in main().</p>
+      <p>stdio.h provides standard input and output functions.</p>
+      <p>Use a C compiler such as GCC to compile the code.</p>
+    `,
+    code: `#include <stdio.h>
+
+int main(void) {
+    int age = 18;
+
+    printf("Hello, Jose Rizal University!\\n");
+    printf("Age: %d\\n", age);
+
+    return 0;
+}`
+  },
+  {
+    title: "Java Programming Basics",
+    category: "Java",
+    description: "Understand classes and Java syntax.",
+    content: `
+      <p>Java is a class-based programming language.</p>
+      <p>Java source files usually use the .java extension.</p>
+      <p>The Java Development Kit (JDK) is required
+      to compile and run Java programs locally.</p>
+      <p>Save this example as Main.java.</p>
+    `,
+    code: `public class Main {
+    public static void main(String[] args) {
+        String name = "Jose Rizal University Student";
+        int age = 18;
+
+        System.out.println("Hello " + name);
+        System.out.println("Age: " + age);
+    }
+}`
+  },
+  {
+    title: "Object-Oriented Programming",
+    category: "Java",
+    description: "Explore classes, objects, and methods.",
+    content: `
+      <p>Object-oriented programming organizes code
+      around objects and classes.</p>
+      <h3>Core Concepts</h3>
+      <ul>
+        <li>Encapsulation: grouping data and methods.</li>
+        <li>Inheritance: deriving a class from another class.</li>
+        <li>Polymorphism: using common interfaces for different forms.</li>
+        <li>Abstraction: focusing on essential behavior.</li>
+      </ul>
+    `,
+    code: `class Student {
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+
+    void introduce() {
+        System.out.println("I am " + name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s = new Student("Alex");
+        s.introduce();
+    }
+}`
+  },
+  {
+    title: "HTML Fundamentals",
+    category: "Web Development",
+    description: "Build the structure of a webpage.",
+    content: `
+      <p>HTML stands for HyperText Markup Language.</p>
+      <p>It describes the structure of web content.</p>
+      <h3>Common Tags</h3>
+      <ul>
+        <li>h1 to h6: Headings</li>
+        <li>p: Paragraph</li>
+        <li>a: Hyperlink</li>
+        <li>img: Image</li>
+        <li>button: Button</li>
+        <li>form: Form</li>
+      </ul>
+      <p>Save the example as index.html and open it in a browser.</p>
+    `,
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My First Page</title>
+</head>
+<body>
+    <h1>Hello, Students!</h1>
+    <p>Welcome to HTML.</p>
+    <button>Click Me</button>
+</body>
+</html>`
+  },
+  {
+    title: "CSS Fundamentals",
+    category: "Web Development",
+    description: "Style websites using CSS.",
+    content: `
+      <p>CSS stands for Cascading Style Sheets.</p>
+      <p>It controls colors, fonts, spacing, layouts,
+      and responsive design.</p>
+      <p>CSS selectors identify which HTML elements
+      should receive styles.</p>
+      <p>The example below is a complete HTML page with CSS.</p>
+    `,
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Example</title>
+<style>
+body {
+    background: #f5f5f5;
+    font-family: Arial;
+    text-align: center;
+}
+h1 {
+    color: darkred;
+}
+</style>
+</head>
+<body>
+<h1>Welcome to CSS!</h1>
+<p>This page has custom styling.</p>
+</body>
+</html>`
+  },
+  {
+    title: "JavaScript Fundamentals",
+    category: "Web Development",
+    description: "Add interactivity to websites.",
+    content: `
+      <p>JavaScript is a programming language commonly
+      used to make webpages interactive.</p>
+      <p>It can respond to clicks, validate forms,
+      and change page content.</p>
+      <p>JavaScript runs directly in modern browsers.</p>
+    `,
+    code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JavaScript Example</title>
+</head>
+<body>
+<h1 id="message">Hello!</h1>
+<button onclick="changeText()">Click Me</button>
+
+<script>
+function changeText() {
+    document.getElementById("message").textContent =
+        "Welcome to JavaScript!";
+}
+<\/script>
+</body>
+</html>`
+  },
+  {
+    title: "Introduction to SQL",
+    category: "Database",
+    description: "Learn tables and basic SQL queries.",
+    content: `
+      <p>SQL stands for Structured Query Language.</p>
+      <p>SQL is used to work with relational databases.</p>
+      <h3>Common Commands</h3>
+      <ul>
+        <li>SELECT: Retrieve data</li>
+        <li>INSERT: Add records</li>
+        <li>UPDATE: Modify records</li>
+        <li>DELETE: Remove records</li>
+        <li>CREATE TABLE: Define a table</li>
+      </ul>
+      <p>Run the example in an SQL database environment.</p>
+    `,
+    code: `CREATE TABLE students (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(100),
+    year_level INTEGER
+);
+
+INSERT INTO students
+VALUES (1, 'Alex', 1);
+
+SELECT * FROM students;`
+  },
+  {
+    title: "Git and GitHub",
+    category: "Development Tools",
+    description: "Save and publish programming projects.",
+    content: `
+      <p>Git is a version control system used to track
+      changes to files.</p>
+      <p>GitHub is a platform for hosting Git repositories.</p>
+      <h3>Basic Workflow</h3>
+      <ol>
+        <li>Initialize a repository.</li>
+        <li>Add your project files.</li>
+        <li>Commit your changes.</li>
+        <li>Connect to a remote repository.</li>
+        <li>Push your changes to GitHub.</li>
+      </ol>
+      <p>These commands run in a terminal with Git installed.</p>
+    `,
+    code: `git init
+git add .
+git commit -m "First commit"
+git branch -M main
+
+# Add your own GitHub repository URL:
+git remote add origin YOUR_REPOSITORY_URL
+git push -u origin main`
+  }
+];
+
+// ===============================
+// WEBSITE FUNCTIONS
+// ===============================
+
+let currentLesson = -1;
+let completed = [];
+
+try {
+  completed = JSON.parse(
+    localStorage.getItem("Jose Rizal University Completed") || "[]"
+  );
+
+  if (!Array.isArray(completed)) {
+    completed = [];
+  }
+} catch (error) {
+  completed = [];
+}
+
+function renderLessons() {
+  const search = document.getElementById("search")
+    .value.toLowerCase();
+
+  const list = document.getElementById("lessonList");
+  list.innerHTML = "";
+
+  lessons.forEach((lesson, index) => {
+    const text = (
+      lesson.title + " " +
+      lesson.category + " " +
+      lesson.description
+    ).toLowerCase();
+
+    if (!text.includes(search)) return;
+
+    const card = document.createElement("div");
+    card.className = "card lesson";
+
+    const title = document.createElement("h3");
+    title.textContent = lesson.title;
+
+    const category = document.createElement("small");
+    category.textContent = lesson.category;
+
+    const description = document.createElement("p");
+    description.textContent = lesson.description;
+
+    const button = document.createElement("button");
+    button.textContent = completed.includes(index)
+      ? "✓ Review Lesson"
+      : "Start Lesson";
+
+    button.onclick = () => openLesson(index);
+
+    card.append(title, category, description, button);
+    list.appendChild(card);
+  });
+}
+
+function openLesson(index) {
+  currentLesson = index;
+  const lesson = lessons[index];
+
+  document.getElementById("lessonViewer").style.display = "block";
+  document.getElementById("lessonTitle").textContent = lesson.title;
+  document.getElementById("lessonCategory").textContent =
+    "Category: " + lesson.category;
+  document.getElementById("lessonContent").innerHTML = lesson.content;
+  document.getElementById("lessonCode").textContent = lesson.code;
+
+  document.getElementById("lessonStatus").textContent =
+    completed.includes(index)
+      ? "✓ You have completed this lesson."
+      : "Read the lesson and mark it completed.";
+
+  document.getElementById("lessonViewer")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+function closeLesson() {
+  document.getElementById("lessonViewer").style.display = "none";
+  document.getElementById("lessons")
+    .scrollIntoView({ behavior: "smooth" });
+}
+
+function completeLesson() {
+  if (currentLesson < 0) return;
+
+  if (!completed.includes(currentLesson)) {
+    completed.push(currentLesson);
+    localStorage.setItem(
+      "Jose Rizal University Completed",
+      JSON.stringify(completed)
+    );
+  }
+
+  document.getElementById("lessonStatus").textContent =
+    "✓ Lesson completed! Great job.";
+
+  updateProgress();
+  renderLessons();
+}
+
+function updateProgress() {
+  const valid = completed.filter(
+    value => Number.isInteger(value) &&
+    value >= 0 &&
+    value < lessons.length
+  );
+
+  const unique = [...new Set(valid)];
+  const percent = Math.round(
+    (unique.length / lessons.length) * 100
+  );
+
+  document.getElementById("totalLessons").textContent =
+    lessons.length;
+
+  document.getElementById("completedLessons").textContent =
+    unique.length;
+
+  document.getElementById("progressPercent").textContent =
+    percent + "%";
+
+  document.getElementById("progressBar").style.width =
+    percent + "%";
+}
+
+async function copyCode() {
+  if (currentLesson < 0) return;
+
+  const code = lessons[currentLesson].code;
+
+  try {
+    await navigator.clipboard.writeText(code);
+    alert("Code copied successfully!");
+  } catch (error) {
+    alert("Select the code and press Ctrl + C to copy it.");
+  }
+}
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
+// ===============================
+// QUIZ DATABASE
+// ===============================
+
+const questions = [
+  {
+    q: "What does HTML stand for?",
+    options: [
+      "HyperText Markup Language",
+      "HighText Machine Language",
+      "Home Tool Markup Language",
+      "Hyper Transfer Main Language"
+    ],
+    answer: 0
+  },
+  {
+    q: "Which language is commonly used to style websites?",
+    options: ["Python", "Java", "CSS", "SQL"],
+    answer: 2
+  },
+  {
+    q: "Which Python function displays output?",
+    options: ["input()", "print()", "scan()", "show()"],
+    answer: 1
+  },
+  {
+    q: "Which symbol is used for addition?",
+    options: ["*", "/", "+", "%"],
+    answer: 2
+  },
+  {
+    q: "What is an algorithm?",
+    options: [
+      "A computer virus",
+      "A set of steps to solve a problem",
+      "A hardware device",
+      "A programming error"
+    ],
+    answer: 1
+  },
+  {
+    q: "Which loop is used to repeat code?",
+    options: ["for", "class", "print", "import"],
+    answer: 0
+  },
+  {
+    q: "Which keyword defines a function in Python?",
+    options: ["function", "define", "def", "func"],
+    answer: 2
+  },
+  {
+    q: "Which SQL command retrieves records?",
+    options: ["DELETE", "SELECT", "UPDATE", "DROP"],
+    answer: 1
+  },
+  {
+    q: "Which file extension is used for Java source code?",
+    options: [".html", ".css", ".java", ".py"],
+    answer: 2
+  },
+  {
+    q: "What is Git mainly used for?",
+    options: [
+      "Image editing",
+      "Version control",
+      "Video playback",
+      "Computer cleaning"
+    ],
+    answer: 1
+  }
+];
+
+function renderQuiz() {
+  const container = document.getElementById("quizQuestions");
+  container.innerHTML = "";
+
+  questions.forEach((question, index) => {
+    const box = document.createElement("div");
+    box.className = "question";
+
+    const heading = document.createElement("h3");
+    heading.textContent = (index + 1) + ". " + question.q;
+    box.appendChild(heading);
+
+    question.options.forEach((option, optionIndex) => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+
+      input.type = "radio";
+      input.name = "question" + index;
+      input.value = optionIndex;
+
+      label.appendChild(input);
+      label.appendChild(
+        document.createTextNode(" " + option)
+      );
+
+      box.appendChild(label);
+    });
+
+    container.appendChild(box);
+  });
+}
+
+function checkQuiz() {
+  let score = 0;
+  let answered = 0;
+
+  questions.forEach((question, index) => {
+    const selected = document.querySelector(
+      'input[name="question' + index + '"]:checked'
+    );
+
+    if (selected) {
+      answered++;
+
+      if (Number(selected.value) === question.answer) {
+        score++;
+      }
+    }
+  });
+
+  const result = document.getElementById("quizResult");
+
+  if (answered < questions.length) {
+    result.textContent =
+      "Please answer all " + questions.length +
+      " questions before submitting.";
+    return;
+  }
+
+  const percent = Math.round(
+    (score / questions.length) * 100
+  );
+
+  result.textContent =
+    "Your Score: " + score + "/" + questions.length +
+    " (" + percent + "%). " +
+    (percent >= 70
+      ? "Great job! You passed!"
+      : "Keep studying and try again!");
+}
+
+function resetQuiz() {
+  renderQuiz();
+  document.getElementById("quizResult").textContent = "";
+}
+
+// Initialize website
+renderLessons();
+renderQuiz();
+updateProgress();
+</script>
+
+</body>
+</html>
